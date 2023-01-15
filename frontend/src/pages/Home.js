@@ -1,4 +1,8 @@
+import { useSelector } from "react-redux"
 
-export const Login = ()=>{
-    return <div>Hello from Home component</div>
+export const Home = ()=>{
+    const data = useSelector(state=>state.authReducer.data)
+    console.log(data)
+    const userName = Object.values(data).map(item=>item.email)
+    return <h1>Hello {userName}</h1>
 }

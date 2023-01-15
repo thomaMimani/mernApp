@@ -6,6 +6,8 @@ const HttpError = require('./models/http-error')
 
 
 const app = express()
+var cors = require('cors')
+app.use(cors())
 
 app.use(bodyParser.json())
 app.use(`/api/places`,placesRoutes)
