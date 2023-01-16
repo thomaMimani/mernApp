@@ -16,10 +16,10 @@ export const createUserAsync = createAsyncThunk(
             headers: {"Content-type": "application/json"},
             body:JSON.stringify(data),
         })
-        if(!response){
-            console.log(response)
+        console.log(response)
+        if(!response.ok){
             const error = await response.json()
-            return error.json()
+            throw new Error(error)
         }
         return response.json()
       

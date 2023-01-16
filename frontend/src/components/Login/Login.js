@@ -12,7 +12,6 @@ export const Login = () => {
     const [emailS, setEmailS] = useState()
     const [usernameS, setUsernameS] = useState()
     const [passwordS, setPasswordS] = useState()
-    const data = useSelector(state => state.authReducer.data)
     if (!isLogin) {
         dispatch(authApi(`http://localhost:4000/api/user/signUp`))
     } else {
@@ -35,13 +34,17 @@ export const Login = () => {
         }
 
         dispatch(createUserAsync({ api, data })).then(data=>{
+            
             try{
+                if(data.error){
+                    throw data.error
+                }
                 return navigate("/home")
             } catch (error){
+                console.log(error)
                 return (error)
             }
         })
-
     }
 
 
