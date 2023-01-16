@@ -8,7 +8,8 @@ export const Login = () => {
     const [isLogin, setIsLogin] = useState(true)
     const dispatch = useDispatch()
     const api = useSelector(state => state.authReducer.api)
-
+    
+    const [errorState,setErrorState]= useState()
     const [emailS, setEmailS] = useState()
     const [usernameS, setUsernameS] = useState()
     const [passwordS, setPasswordS] = useState()
@@ -41,8 +42,7 @@ export const Login = () => {
                 }
                 return navigate("/home")
             } catch (error){
-                console.log(error)
-                return (error)
+                setErrorState(error.message)
             }
         })
     }
@@ -53,6 +53,7 @@ export const Login = () => {
             sx={{ width: '60%', m: 'auto', maxWidth: '450px' }}
         >
             <h1 style={{ textAlign: 'center' }}>{isLogin ? 'Login' : 'SignUn'}</h1>
+            <div style={{textAlign:'center'}}>{errorState}</div>
             <CardContent>
                 {!isLogin &&
                     <TextField onChange={(e) => setUsernameS(e.target.value)} sx={{ width: '100%', my: 1 }} label={'Username'} ></TextField>

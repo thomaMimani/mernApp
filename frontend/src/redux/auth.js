@@ -19,7 +19,7 @@ export const createUserAsync = createAsyncThunk(
         console.log(response)
         if(!response.ok){
             const error = await response.json()
-            throw new Error(error)
+            throw error
         }
         return response.json()
       
