@@ -1,7 +1,7 @@
 import { CardContent, TextField, CardActions, Card, Button } from "@mui/material"
-import { useEffect, useRef, useState } from "react"
+import {  useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { redirect, useNavigate } from "react-router-dom"
+import {useNavigate } from "react-router-dom"
 import { authApi, createUserAsync } from "../../redux/auth"
 export const Login = () => {
     const navigate = useNavigate()
@@ -13,7 +13,6 @@ export const Login = () => {
     const [usernameS, setUsernameS] = useState()
     const [passwordS, setPasswordS] = useState()
     const data = useSelector(state => state.authReducer.data)
-    console.log(data)
     if (!isLogin) {
         dispatch(authApi(`http://localhost:4000/api/user/signUp`))
     } else {
@@ -35,9 +34,13 @@ export const Login = () => {
             }
         }
 
-        dispatch(createUserAsync({ api, data }))
-
-        return navigate("/home")
+        dispatch(createUserAsync({ api, data })).then(data=>{
+            try{
+                return navigate("/home")
+            } catch (error){
+                return (error)
+            }
+        })
 
     }
 
