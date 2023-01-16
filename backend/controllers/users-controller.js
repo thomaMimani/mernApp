@@ -33,7 +33,9 @@ const postUser=(req,res,next)=>{
         username
     }
     const hasuser = DUMMY_USER.find(item=>item.username===username)
-    if(hasuser){
+    if(!password || !username || !email ){
+        throw new HttpError('All forms are required')
+    }else if(hasuser){
         throw new HttpError('User exists')
     }
     DUMMY_USER.push(newUser)

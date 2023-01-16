@@ -1,13 +1,27 @@
-import { Route, Routes } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import './App.css';
-import { Login } from './components/Login/Login';
-import { Home } from './pages/Home';
+import { Navigation } from './components/Navigation/Navigation';
+import { AnimatedRoutes } from './UI/AnimatedRoutes';
+
 function App() {
+  const data = useSelector(state => state.authReducer.data)
+  const [isLogin, setIsLogin] = useState()
+
+  useEffect(() => {
+    let dataValue = Object.values(data)
+    setIsLogin(dataValue.length > 0 ? true : false)
+  }, [data])
+
   return (
-      <Routes>
-        <Route path='/' element={<Login/>}/>
-        <Route path='/home' element={<Home/>} />
-      </Routes>
+    <>
+      {
+        isLogin &&
+        <Navigation />
+      }
+
+     <AnimatedRoutes/>
+    </>
   );
 }
 
